@@ -19,10 +19,10 @@ const Hero = () => {
     <div className="relative w-full h-screen overflow-hidden flex items-center">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/70 to-background z-10"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-background z-10"></div>
         <div 
           ref={parallaxRef}
-          className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1605810230434-7631ac76ec81')] bg-cover bg-center opacity-50"
+          className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1518770660439-4636190af475')] bg-cover bg-center opacity-70"
         ></div>
       </div>
       

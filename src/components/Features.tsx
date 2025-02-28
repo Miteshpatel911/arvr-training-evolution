@@ -151,7 +151,7 @@ const Features = () => {
     <section id="solutions" className="section" ref={sectionRef}>
       <div 
         ref={parallaxBgRef}
-        className="bg-parallax bg-[url('https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d')]"
+        className="bg-parallax bg-[url('https://images.unsplash.com/photo-1483058712412-4245e9b90334')] opacity-70"
       ></div>
       <div className="absolute inset-0 bg-gradient-to-b from-black/90 to-background z-0"></div>
       

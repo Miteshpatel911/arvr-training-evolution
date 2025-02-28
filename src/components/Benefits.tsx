@@ -134,9 +134,9 @@ const Benefits = () => {
     <section id="benefits" className="section bg-gradient-to-b from-background to-black" ref={sectionRef}>
       <div 
         ref={parallaxBgRef}
-        className="bg-parallax bg-[url('https://images.unsplash.com/photo-1519389950473-47ba0277781c')]"
+        className="bg-parallax bg-[url('https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7')] opacity-70"
       ></div>
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-background/90 to-black z-0"></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-background/80 to-black/90 z-0"></div>
       
       <div className="section-inner">
         <div className="max-w-3xl mx-auto text-center mb-16">

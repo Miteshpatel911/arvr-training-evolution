@@ -156,7 +156,7 @@ const Testimonials = () => {
     <section id="case-studies" className="section bg-gradient-to-b from-background to-black" ref={sectionRef}>
       <div 
         ref={parallaxBgRef}
-        className="bg-parallax bg-[url('https://images.unsplash.com/photo-1505740420928-5e560c06d30e')]"
+        className="bg-parallax bg-[url('https://images.unsplash.com/photo-1488590528505-98d2b5aba04b')] opacity-70"
       ></div>
       <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-background/90 to-black/70 z-0"></div>
       
@@ -170,10 +170,10 @@ const Testimonials = () => {
           </h2>
           
           {/* Company logos (placeholders) */}
-          <div className="flex flex-wrap justify-center gap-8 mb-16 opacity-50">
+          <div className="flex flex-wrap justify-center gap-8 mb-16 opacity-70">
             {[...Array(5)].map((_, i) => (
               <div key={i} className="w-32 h-16 bg-white/10 rounded-md flex items-center justify-center">
-                <div className="text-white/30 text-xs">COMPANY LOGO</div>
+                <div className="text-white/50 text-xs">COMPANY LOGO</div>
               </div>
             ))}
           </div>

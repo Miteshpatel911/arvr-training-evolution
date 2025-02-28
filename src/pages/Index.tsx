@@ -40,7 +40,7 @@ const Index = () => {
   return (
     <div className="relative min-h-screen" ref={containerRef}>
       {/* Global background - subtle pattern */}
-      <div className="fixed inset-0 bg-[radial-gradient(rgba(0,80,50,0.03)_1px,transparent_1px)] bg-[length:20px_20px] opacity-30 pointer-events-none"></div>
+      <div className="fixed inset-0 bg-[radial-gradient(rgba(33,150,243,0.05)_1px,transparent_1px)] bg-[length:20px_20px] opacity-40 pointer-events-none"></div>
       
       <Navbar />
       <Hero />

@@ -11,7 +11,7 @@
     --card-foreground: 0 0% 98%;
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
-    --primary: 142 76.2% 36.3%;
+    --primary: 210 100% 50%;
     --primary-foreground: 0 0% 98%;
     --secondary: 240 3.7% 15.9%;
     --secondary-foreground: 0 0% 98%;
@@ -23,7 +23,7 @@
     --destructive-foreground: 0 0% 98%;
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
-    --ring: 142 76.2% 36.3%;
+    --ring: 210 100% 50%;
     --radius: 0.75rem;
   }
 }
@@ -82,13 +82,13 @@
   }
   
   .bg-parallax {
-    @apply absolute inset-0 bg-fixed bg-no-repeat bg-cover bg-center z-0 opacity-30;
+    @apply absolute inset-0 bg-fixed bg-no-repeat bg-cover bg-center z-0 opacity-50;
     transition: transform 0.5s cubic-bezier(0.2, 0, 0.2, 1);
   }
 }
 
 .primary-button {
-  @apply rounded-full px-6 py-3 bg-primary text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-[0_5px_15px_rgba(0,165,120,0.3)] active:scale-95;
+  @apply rounded-full px-6 py-3 bg-primary text-white font-medium transition-all duration-300 hover:scale-105 hover:shadow-[0_5px_15px_rgba(33,150,243,0.4)] active:scale-95;
 }
 
 .secondary-button {
@@ -104,5 +104,5 @@
 }
 
 .gradient-text {
-  @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-teal-400;
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-blue-300;
 }
