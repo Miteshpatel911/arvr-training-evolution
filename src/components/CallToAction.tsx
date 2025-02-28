@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 const CallToAction = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+  const parallaxBgRef = useRef<HTMLDivElement>(null);
   
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -28,9 +29,28 @@ const CallToAction = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!sectionRef.current || !parallaxBgRef.current) return;
+      const { top } = sectionRef.current.getBoundingClientRect();
+      const scrollPosition = window.innerHeight - top;
+      
+      if (scrollPosition > 0 && top < window.innerHeight) {
+        const scrollValue = scrollPosition * 0.03;
+        parallaxBgRef.current.style.transform = `translateY(${scrollValue}px)`;
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <section id="contact" className="section bg-gradient-to-b from-background to-black" ref={sectionRef}>
-      <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1473091534298-04dcbce3278c')] bg-cover bg-center opacity-10 z-0"></div>
+      <div 
+        ref={parallaxBgRef}
+        className="bg-parallax bg-[url('https://images.unsplash.com/photo-1473091534298-04dcbce3278c')]"
+      ></div>
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/80 to-background z-0"></div>
       
       <div className="section-inner">

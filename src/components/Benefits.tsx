@@ -89,6 +89,7 @@ const Benefits = () => {
 
   const sectionRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
+  const parallaxBgRef = useRef<HTMLDivElement>(null);
   
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -115,13 +116,13 @@ const Benefits = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (!sectionRef.current) return;
-      const { top } = sectionRef.current.getBoundingClientRect();
-      const offset = window.innerHeight / 2;
+      if (!sectionRef.current || !parallaxBgRef.current) return;
+      const { top, height } = sectionRef.current.getBoundingClientRect();
+      const scrollPosition = window.innerHeight - top;
       
-      if (top < offset) {
-        const scrollValue = (offset - top) * 0.05;
-        sectionRef.current.style.backgroundPositionY = `${-scrollValue}px`;
+      if (scrollPosition > 0 && top < window.innerHeight) {
+        const scrollValue = scrollPosition * 0.05;
+        parallaxBgRef.current.style.transform = `translateY(${scrollValue}px)`;
       }
     };
     
@@ -131,7 +132,11 @@ const Benefits = () => {
 
   return (
     <section id="benefits" className="section bg-gradient-to-b from-background to-black" ref={sectionRef}>
-      <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1519389950473-47ba0277781c')] bg-cover bg-top bg-no-repeat opacity-10 z-0"></div>
+      <div 
+        ref={parallaxBgRef}
+        className="bg-parallax bg-[url('https://images.unsplash.com/photo-1519389950473-47ba0277781c')]"
+      ></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-background/90 to-black z-0"></div>
       
       <div className="section-inner">
         <div className="max-w-3xl mx-auto text-center mb-16">

@@ -103,6 +103,7 @@ const FAQItem = ({ question, answer, index }: FAQItemProps) => {
 const FAQ = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
+  const parallaxBgRef = useRef<HTMLDivElement>(null);
   
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -127,9 +128,29 @@ const FAQ = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!sectionRef.current || !parallaxBgRef.current) return;
+      const { top } = sectionRef.current.getBoundingClientRect();
+      const scrollPosition = window.innerHeight - top;
+      
+      if (scrollPosition > 0 && top < window.innerHeight) {
+        const scrollValue = scrollPosition * 0.04;
+        parallaxBgRef.current.style.transform = `translateY(-${scrollValue}px)`;
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <section id="faq" className="section" ref={sectionRef}>
-      <div className="absolute inset-0 bg-gradient-to-b from-black to-background z-0"></div>
+      <div 
+        ref={parallaxBgRef}
+        className="bg-parallax bg-[url('https://images.unsplash.com/photo-1451187580459-43490279c0fa')]"
+      ></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-black/95 via-black/90 to-background/90 z-0"></div>
       
       <div className="section-inner">
         <div className="max-w-3xl mx-auto text-center mb-16">

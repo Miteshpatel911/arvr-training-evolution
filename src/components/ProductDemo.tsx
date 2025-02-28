@@ -25,6 +25,7 @@ const ProductDemo = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+  const parallaxBgRef = useRef<HTMLDivElement>(null);
   
   useEffect(() => {
     const interval = setInterval(() => {
@@ -57,17 +58,18 @@ const ProductDemo = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (!sectionRef.current) return;
+      if (!sectionRef.current || !parallaxBgRef.current) return;
       const { top } = sectionRef.current.getBoundingClientRect();
-      const offset = window.innerHeight;
+      const scrollPosition = window.innerHeight - top;
       
-      if (top < offset && top > -sectionRef.current.clientHeight) {
-        const scrollProgress = (offset - top) / (offset + sectionRef.current.clientHeight);
-        const rotate = scrollProgress * 5; // Rotate up to 5 degrees
-        const scale = 1 + scrollProgress * 0.05; // Scale up to 1.05x
+      if (scrollPosition > 0 && top < window.innerHeight) {
+        const scrollValue = scrollPosition * 0.08;
+        parallaxBgRef.current.style.transform = `translateY(-${scrollValue}px)`;
         
         const slideElements = sectionRef.current.querySelectorAll('.demo-slide');
         slideElements.forEach((el) => {
+          const rotate = scrollPosition * 0.002; // Subtle rotation
+          const scale = 1 + scrollPosition * 0.0002; // Subtle scale
           (el as HTMLElement).style.transform = `rotate(${rotate}deg) scale(${scale})`;
         });
       }
@@ -79,9 +81,12 @@ const ProductDemo = () => {
 
   return (
     <section id="demo" className="section bg-gradient-to-b from-black to-background" ref={sectionRef}>
-      <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,80,50,0.1)_0%,rgba(0,0,0,0)_70%)]"></div>
-      </div>
+      <div 
+        ref={parallaxBgRef}
+        className="bg-parallax bg-[url('https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d')]"
+      ></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/70 to-background/90 z-0"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,80,50,0.1)_0%,rgba(0,0,0,0)_70%)] z-0"></div>
       
       <div className="section-inner">
         <div className="max-w-3xl mx-auto text-center mb-16">

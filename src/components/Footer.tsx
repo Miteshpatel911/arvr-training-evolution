@@ -3,6 +3,7 @@ import { useEffect, useRef } from "react";
 
 const Footer = () => {
   const footerRef = useRef<HTMLDivElement>(null);
+  const parallaxBgRef = useRef<HTMLDivElement>(null);
   
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -26,10 +27,30 @@ const Footer = () => {
       }
     };
   }, []);
+  
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!footerRef.current || !parallaxBgRef.current) return;
+      const { top } = footerRef.current.getBoundingClientRect();
+      const scrollPosition = window.innerHeight - top;
+      
+      if (scrollPosition > 0 && top < window.innerHeight) {
+        const scrollValue = scrollPosition * 0.02;
+        parallaxBgRef.current.style.transform = `translateY(${scrollValue}px)`;
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <footer className="w-full py-16 bg-black relative" ref={footerRef}>
-      <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-black/50 z-0"></div>
+      <div 
+        ref={parallaxBgRef}
+        className="bg-parallax bg-[url('https://images.unsplash.com/photo-1636953056323-9c09fdd74fa6')]"
+      ></div>
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/90 to-black/80 z-0"></div>
       
       <div className="container mx-auto px-4 relative z-10 opacity-0">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10">

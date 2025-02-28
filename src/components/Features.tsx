@@ -106,6 +106,7 @@ const FeatureCard = ({
 const Features = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
+  const parallaxBgRef = useRef<HTMLDivElement>(null);
   
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -132,12 +133,13 @@ const Features = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (!sectionRef.current) return;
-      const { top } = sectionRef.current.getBoundingClientRect();
+      if (!sectionRef.current || !parallaxBgRef.current) return;
+      const { top, height } = sectionRef.current.getBoundingClientRect();
+      const scrollPosition = window.innerHeight - top;
       
-      if (top < window.innerHeight && top > -sectionRef.current.clientHeight) {
-        const scrollProgress = 1 - (top / window.innerHeight);
-        sectionRef.current.style.backgroundPosition = `center ${scrollProgress * 20}%`;
+      if (scrollPosition > 0 && top < window.innerHeight) {
+        const scrollValue = scrollPosition * 0.1;
+        parallaxBgRef.current.style.transform = `translateY(${scrollValue}px)`;
       }
     };
     
@@ -147,7 +149,10 @@ const Features = () => {
 
   return (
     <section id="solutions" className="section" ref={sectionRef}>
-      <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d')] bg-cover bg-center opacity-5 z-0"></div>
+      <div 
+        ref={parallaxBgRef}
+        className="bg-parallax bg-[url('https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d')]"
+      ></div>
       <div className="absolute inset-0 bg-gradient-to-b from-black/90 to-background z-0"></div>
       
       <div className="section-inner">

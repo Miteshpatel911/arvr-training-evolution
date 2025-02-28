@@ -20,9 +20,15 @@ const Index = () => {
       
       const scrollY = window.scrollY;
       const parallaxLayers = containerRef.current.querySelectorAll('.parallax-layer');
+      const bgParallaxLayers = containerRef.current.querySelectorAll('.bg-parallax');
       
       parallaxLayers.forEach((layer, index) => {
         const speed = index % 2 === 0 ? 0.1 : -0.1;
+        (layer as HTMLElement).style.transform = `translateY(${scrollY * speed}px)`;
+      });
+      
+      bgParallaxLayers.forEach((layer, index) => {
+        const speed = (index % 3 + 1) * 0.05;
         (layer as HTMLElement).style.transform = `translateY(${scrollY * speed}px)`;
       });
     };
@@ -33,6 +39,9 @@ const Index = () => {
   
   return (
     <div className="relative min-h-screen" ref={containerRef}>
+      {/* Global background - subtle pattern */}
+      <div className="fixed inset-0 bg-[radial-gradient(rgba(0,80,50,0.03)_1px,transparent_1px)] bg-[length:20px_20px] opacity-30 pointer-events-none"></div>
+      
       <Navbar />
       <Hero />
       <Benefits />

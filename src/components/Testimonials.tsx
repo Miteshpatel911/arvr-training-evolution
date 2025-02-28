@@ -105,6 +105,7 @@ const TestimonialCard = ({
 const Testimonials = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
+  const parallaxBgRef = useRef<HTMLDivElement>(null);
   
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -131,14 +132,17 @@ const Testimonials = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (!sectionRef.current) return;
+      if (!sectionRef.current || !parallaxBgRef.current) return;
       const { top } = sectionRef.current.getBoundingClientRect();
-      const cards = sectionRef.current.querySelectorAll('.glass-morphism');
+      const scrollPosition = window.innerHeight - top;
       
-      if (top < window.innerHeight && top > -sectionRef.current.clientHeight) {
-        const offset = (window.innerHeight - top) * 0.05;
+      if (scrollPosition > 0 && top < window.innerHeight) {
+        const scrollValue = scrollPosition * 0.06;
+        parallaxBgRef.current.style.transform = `translateY(${scrollValue}px)`;
         
+        const cards = sectionRef.current.querySelectorAll('.glass-morphism');
         cards.forEach((card, index) => {
+          const offset = scrollPosition * 0.02;
           (card as HTMLElement).style.transform = `translateY(${offset * (index % 2 === 0 ? -1 : 1)}px)`;
         });
       }
@@ -150,7 +154,11 @@ const Testimonials = () => {
 
   return (
     <section id="case-studies" className="section bg-gradient-to-b from-background to-black" ref={sectionRef}>
-      <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1505740420928-5e560c06d30e')] bg-cover bg-center opacity-5 z-0"></div>
+      <div 
+        ref={parallaxBgRef}
+        className="bg-parallax bg-[url('https://images.unsplash.com/photo-1505740420928-5e560c06d30e')]"
+      ></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-background/90 to-black/70 z-0"></div>
       
       <div className="section-inner">
         <div className="max-w-3xl mx-auto text-center mb-16">

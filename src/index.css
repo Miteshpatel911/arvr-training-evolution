@@ -80,6 +80,11 @@
   .stats-card {
     @apply glass-morphism p-6 rounded-xl transition-all duration-500 hover:bg-white/10;
   }
+  
+  .bg-parallax {
+    @apply absolute inset-0 bg-fixed bg-no-repeat bg-cover bg-center z-0 opacity-30;
+    transition: transform 0.5s cubic-bezier(0.2, 0, 0.2, 1);
+  }
 }
 
 .primary-button {
